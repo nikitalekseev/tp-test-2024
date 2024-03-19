@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "product.fullname" . }}
+  labels:
+    {{- include "product.labels" . | nindent 4 }}
+spec:
+  minAvailable: {{ .Values.replicaMinAvailable }}
+  selector:
+    matchLabels:
+      {{- include "product.selectorLabels" . | nindent 6 }}
